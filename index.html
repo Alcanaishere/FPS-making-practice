@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Chase Arena</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icon.png">
+</head>
+<body>
+
+<canvas id="game-canvas"></canvas>
+<div id="vignette"></div>
+
+<div id="ui-overlay">
+
+  
+  <div id="start-screen" class="screen">
+    <div class="panel">
+      <div class="title-lockup">
+        <p class="title-jp marquee">Chase Arena</p>
+        <p class="title-en marquee">Chase ARENA</p>
+      </div>
+      <div class="horizon"><div class="grid"></div><div class="sun"></div></div>
+      <ul class="rules">
+        <li><b>View:</b> <span class="k-cyan">You can look around</span>with your mouse (You can also click to lock the screen)</li>
+        <li><b>Move:</b> <span class="k-cyan">WASD / Arrows</span>On the mobile, use the cursor on the bottom left</li>
+        <li><b>Sprint:</b> <span class="k-cyan">Shift</span>Be sure you spend the energy to dash</li>
+        <li><span class="k-amber">Collect all rings</span>to complete the level</li>
+        <li><span class="k-mag">You lose 1 life</span>if you are hit by the red enemy<b>Be careful</b> of your back, too...</li>
+      </ul>
+      <button id="start-btn" class="neon-btn">Game Start</button>
+    </div>
+  </div>
+
+ 
+  <div id="gameover-screen" class="screen hidden">
+    <div class="panel">
+      <p class="title-jp marquee">GAME OVER</p>
+      <p class="title-en marquee" style="margin-bottom:20px;">You are DONE...</p>
+      <div class="stat-row"><span>Your Score</span><span id="final-score">0</span></div>
+      <div class="stat-row"><span>Last Level you reached</span><span id="final-level">1</span></div>
+      <div style="height:18px;"></div>
+      <button id="restart-btn" class="neon-btn">Try again!</button>
+    </div>
+  </div>
+
+
+  <div id="hud" class="hidden">
+    <div id="hud-top-left">
+      <div class="hud-line"><span>SCORE</span><b id="score-val">0</b></div>
+      <div class="hud-line"><span>LEVEL</span><b id="level-val">1</b></div>
+      <div class="hud-line"><span>LIFE</span><b id="lives-val">❤❤❤</b></div>
+    </div>
+    <div id="minimap-wrap"><canvas id="minimap-canvas" width="160" height="160"></canvas></div>
+    <div id="crosshair"></div>
+    <div id="stamina-wrap">
+      <div id="stamina-label">ENERGY</div>
+      <div id="stamina-track"><div id="stamina-fill"></div></div>
+    </div>
+    <div id="level-clear-banner">
+      <div class="lc-title marquee">LEVEL CLEAR!</div>
+      <div class="lc-sub">ascending to the NEXT LEVEL...</div>
+    </div>
+    <div id="lock-hint">Clickto lock</div>
+  </div>
+
+  <div id="look-zone"></div>
+  <div id="joystick-base"><div id="joystick-knob"></div></div>
+  <div id="sprint-btn">DASH</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
