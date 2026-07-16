@@ -36,9 +36,10 @@
     radius: 0.6,
     speed: 9,
     sprintSpeed: 15,
-    stamina: 100,
-    maxStamina: 100,
-    invincibleTimer: 2.0
+    energy: 100,
+    maxenergy: 100,
+    invincibleTimer: 2.0,
+    canSprint: true
   };
 
   const shake = { time:0, duration:0, strength:0 };
@@ -428,6 +429,8 @@
       const gc = document.getElementById('game-canvas');
       if(gc.requestPointerLock) gc.requestPointerLock();
     }
+    player.energy = player.maxenergy;
+    player.canSprint = true;
   }
 
   function gameOver(){
@@ -485,7 +488,7 @@
     document.getElementById('score-val').textContent = score;
     document.getElementById('level-val').textContent = level;
     document.getElementById('lives-val').textContent = '\u2764'.repeat(Math.max(lives,0)) || '-';
-    document.getElementById('stamina-fill').style.width = (player.stamina/player.maxStamina*100) + '%';
+    document.getElementById('energy-fill').style.width = (player.energy/player.maxenergy*100) + '%';
   }
 
 
@@ -509,7 +512,7 @@
   function updatePlayer(delta){
     const inp = getRawInput();
 
-    // forward/right derived directly from yaw, matching THREE's YXZ camera rotation
+    
     const forward2D = new THREE.Vector3(-Math.sin(yaw), 0, -Math.cos(yaw));
     const right2D = new THREE.Vector3(Math.cos(yaw), 0, -Math.sin(yaw));
 
@@ -518,12 +521,30 @@
     if(rawMag > 1) moveVec.normalize();
     lastMoveMag = Math.min(rawMag, 1);
 
-    const sprinting = isSprintHeld() && player.stamina > 1 && lastMoveMag > 0.1;
+
+    if (player.energy <= 0) {
+        player.canSprint = false;
+    }
+
+
+    if (!player.canSprint && player.energy >= player.maxenergy) {
+        player.canSprint = true;
+    }
+
+    const sprinting =
+        isSprintHeld() &&
+        player.canSprint &&
+        player.energy > 0 &&
+        lastMoveMag > 0.1;
+
     isSprintingNow = sprinting;
     const curSpeed = sprinting ? player.sprintSpeed : player.speed;
 
-    if(sprinting) player.stamina = Math.max(0, player.stamina - 40*delta);
-    else player.stamina = Math.min(player.maxStamina, player.stamina + 20*delta);
+    if (sprinting) {
+        player.energy = Math.max(0, player.energy - 40 * delta);
+    } else {
+        player.energy = Math.min(player.maxenergy, player.energy + 20 * delta);
+    }
 
     if(lastMoveMag > 0.05){
       const move = moveVec.clone().multiplyScalar(curSpeed*delta);
