@@ -7,6 +7,6 @@
   Since This is my first to code FPS by myself, there may tons of millions of bugs and issues. If you find any of them or smth, I'm happy if you contact me on discord @-----</b>
 
 ## What I used to code
-  ・Three.js (and some of the free pages explaining about it)
+  ・Three.js (and some of the free pages explaining about it)</b>
   ・Claude (ONLY to code CSS since I'm s**ked at web design)
 
